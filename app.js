@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 
+// Set the view engine to ejs by default. We can change it later.
+app.set('view engine', 'ejs');
+
 // Let public be our static dir.
 app.use(express.static('public'));
 
@@ -11,7 +14,7 @@ app.get('/', function(req, res) {
 
 // Deliver homepage.
 app.get('/home', function(req, res) {
-    res.send('homepage lol');
+    res.render('home');
 });
 
 // Start the server.
