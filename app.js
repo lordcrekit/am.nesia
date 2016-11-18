@@ -17,6 +17,11 @@ app.get('/home', function(req, res) {
     res.render('home');
 });
 
+// Deliver about page
+app.get('/about', function(req, res) {
+	res.render('about');
+});
+
 // Start the server.
 var server = app.listen(process.env.PORT || 3000, function() {
     var host = server.address().address;
