@@ -16,7 +16,10 @@
     },
     "dependencies": {
         "express": "~4.14.0",
-        "ejs": "^1.0.0"
+        "body-parser": "^1.15.2",
+        "express-form": "^0.12.6",
+        "ejs": "^2.5.2",
+        "client-sessions": "^0.7.0"
     },
     "repository": {
         "type": "git",
