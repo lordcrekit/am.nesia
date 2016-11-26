@@ -8,27 +8,19 @@ var env = {
   AUTH0_CALLBACK_URL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
 };
 
-router.get('/', function(req, res) {
-    res.redirect('/home');
-});
-
 // Deliver homepage.
-router.get('/home', function(req, res) {
-    console.log('user is' + req.user);
-    req.session.returnTo = '/home';
-    
+router.get('/', function(req, res) {
+    req.session.returnTo = '/';
     res.render('home', {user: req.user});
 });
 
 // Deliver about page
-router.get('/about', function(req, res) {
-    res.render('about');
-});
+router.get('/about', function(req, res) { res.render('about'); });
+router.get('/privacy', function(req, res) { res.render('privacy'); });
 
 // Login
-router.get('/login',
-  function(req, res){
-    res.render('account-login', { env: env });
+router.get('/login', function(req, res){
+    res.render('user-login', { env: env });
 });
 
 // Logout
