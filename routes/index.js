@@ -19,14 +19,12 @@ router.get('/about', function(req, res) { res.render('about'); });
 router.get('/privacy', function(req, res) { res.render('privacy'); });
 
 // Login
-router.get('/login', function(req, res){
-    res.render('user-login', { env: env });
-});
+router.get('/login', function(req, res){ res.render('user-login', { env: env }); });
 
 // Logout
 router.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
+    req.logout();
+    res.redirect('/');
 });
 
 // After being logged in.
