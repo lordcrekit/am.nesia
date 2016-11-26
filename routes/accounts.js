@@ -20,20 +20,20 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login',
-            form(
-                field("username").trim().required().is(/^[a-z]+$/),
-                field("password").trim().required().is(/^[a-z]+$/)
-            ),
-            function(req, res) {
-    if (!req.form.isValid) {
-        console.log(req.form.errors);
-        console.log(req.form);
-        res.render('account-login'); //TODO: add error message.
-    } else {
-        req.login.username = req.form.username;
-        req.login.password = req.form.password;
-        res.redirect('../home');
-    }
+    form(
+        field("username").trim().required().is(/^[a-z]+$/),
+        field("password").trim().required().is(/^[a-z]+$/)
+    ),
+    function(req, res) {
+        if (!req.form.isValid) {
+            console.log(req.form.errors);
+            console.log(req.form);
+            res.render('account-login'); //TODO: add error message.
+        } else {
+            req.login.username = req.form.username;
+            req.login.password = req.form.password;
+            res.redirect('../home');
+        }
 });
 
 module.exports = router;

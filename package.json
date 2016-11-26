@@ -19,7 +19,12 @@
         "body-parser": "^1.15.2",
         "express-form": "^0.12.6",
         "ejs": "^2.5.2",
-        "client-sessions": "^0.7.0"
+        "client-sessions": "^0.7.0",
+        "passport": "^0.3.2",
+        "passport-auth0": "^0.5.2",
+        "connect-ensure-login": "^0.1.1",
+        "dotenv": "^2.0.0",
+        "morgan": "~1.6.1"
     },
     "repository": {
         "type": "git",
@@ -29,7 +34,7 @@
         "web",
         "app"
     ],
-   "license": "LGPL-3.0",
+    "license": "LGPL-3.0",
     "bugs": {
         "url": "https://github.com/lordcrekit/am.nesia/issues"
     },
