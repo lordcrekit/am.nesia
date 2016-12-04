@@ -24,7 +24,8 @@
         "passport-auth0": "^0.5.2",
         "connect-ensure-login": "^0.1.1",
         "dotenv": "^2.0.0",
-        "morgan": "~1.6.1"
+        "morgan": "~1.6.1",
+		"mysql": "*"
     },
     "repository": {
         "type": "git",

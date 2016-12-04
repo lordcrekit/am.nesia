@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+	<pre><a href="/">Back to home.</a></pre>
+	<h1><% if (subject == null) { %>Root<% } else { %><%= subject.name %><%}%></h1>
+	<% if ( questions.length >0 ) { %>
+		<% if (subscribed) { %>
+			<h3><a href="/subjects/<%=subject.id%>/unsubscribe/">Unsubscribe</a></h3>
+		<% } else { %>
+			<h3><a href="/subjects/<%=subject.id%>/subscribe/">Subscribe</a></h3>
+		<% } %>
+	<% } %>
+	<% if (subjects.length > 0) { %>
+		<h2>Subjects</h2>
+		<ul>
+		<% for (var i = 0; i < subjects.length; i++ ) { %>
+			<li><a href='/subjects/<%= subjects[i].id %>'><%= subjects[i].name %></a></li>
+		<% } %>
+		</ul>
+	<% } %>
+	<% if (questions.length > 0) { %>
+		<h2>Questions</h2>
+		<ul>
+		<% for (var i = 0; i < questions.length; i++ ) { %>
+			<li><a href='/questions/<%= questions[i].id %>'><%= questions[i].text %></a></li>
+		<% } %>
+		</ul>
+	<% } %>
+</body>
+</html>
