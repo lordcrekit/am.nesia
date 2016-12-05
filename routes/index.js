@@ -15,8 +15,8 @@ router.get('/', function(req, res) {
 });
 
 // Deliver about page
-router.get('/about', function(req, res) { res.render('about'); });
-router.get('/privacy', function(req, res) { res.render('privacy'); });
+router.get('/about', function(req, res) { res.render('about', {user:req.user}); });
+router.get('/privacy', function(req, res) { res.render('privacy', {user:req.user}); });
 
 // Login
 router.get('/login', function(req, res){ res.render('user-login', { env: env }); });

@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <header>
+	<% include partials/head %>
 </header>
 <body>
+<% include partials/navbar %>
+<div id="wrapper">
+
+	<% include partials/sidebar %>
+	<% include partials/bs-boilerplate-start %>
+	
+    <!-- Page content -->
     <h1>Welcome, <%= user.nickname %>.</h1>
     <pre><%= user.id %></pre>
+	
+	<% include partials/bs-boilerplate-end %>
 </body>
 </html>

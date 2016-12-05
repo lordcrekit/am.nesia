@@ -59,7 +59,13 @@ router.get('/:subjectID', ensureLoggedIn, function(req, res) {
 						return;
 					}
 					var subscribed = (rows3.length > 0);
-					res.render('subjects', {subject : subject, subscribed : subscribed, subjects : rows1, questions : rows2});
+					res.render('subjects', {
+						user : req.user,
+						subject : subject,
+						subscribed : subscribed,
+						subjects : rows1,
+						questions : rows2
+					});
 					return;
 				});
 			});
