@@ -1,0 +1,6 @@
+CREATE TABLE subjects(
+    id int      NOT NULL AUTO_INCREMENT,
+    ownerid int,
+    name varchar(100),
+    PRIMARY KEY (id)
+);

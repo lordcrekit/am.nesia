@@ -1,0 +1,9 @@
+CREATE TABLE submissions(
+	userID varchar(100)		NOT NULL,
+	questionID int			NOT NULL,
+	origDate datetime		NOT NULL,
+	nextDate datetime		NOT NULL,
+	PRIMARY KEY (userID, questionID),
+	FOREIGN KEY (userID) REFERENCES users(id),
+	FOREIGN KEY (questionID) REFERENCES questions(id)
+);

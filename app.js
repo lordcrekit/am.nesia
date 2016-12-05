@@ -56,6 +56,9 @@ app.use(passport.session());
 // Let public be our static dir.
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Fromat the DB
+require('./functions/firstTimeSetup').firstTimeSetup();
+
 app.use('/', require('./routes/index'));
 app.use('/user', require('./routes/user'));
 app.use('/subjects', require('./routes/subjects'));
@@ -68,24 +71,24 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// development error handler
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    // development error handler
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+        message: err.message,
+        error: err
     });
   });
+} else {
+    // production error handler
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+        message: err.message,
+        error: {}
+      });
+    });
 }
-
-// production error handler
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
 
 module.exports = app;

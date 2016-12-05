@@ -1,0 +1,8 @@
+CREATE TABLE subscriptions(
+    userid varchar(100)		NOT NULL,
+    subjectid int			NOT NULL,
+    algorithm int			NOT NULL,
+    PRIMARY KEY (userid, subjectid),
+    FOREIGN KEY (userid) REFERENCES users(id),
+    FOREIGN KEY (subjectid) REFERENCES subjects(id)
+);

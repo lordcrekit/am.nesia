@@ -17,6 +17,9 @@ connection.connect(function(err) {
   console.log('connected as id ' + connection.threadId);
 });
 
+/*
+ * Makes sure the user is in the database.
+ */
 var ensureInDatabase = function(req, res, next) {
 	connection.query(
 			'SELECT * FROM users WHERE users.id = ?;',
@@ -42,5 +45,11 @@ var ensureInDatabase = function(req, res, next) {
 	});
 };
 
-module.exports = {ensureInDatabase : ensureInDatabase };
+/*
+ * Makes sure the user is an admin.
+ */
+var ensureIsAdmin = function(req, res, next) {
+    
+}
 
+module.exports = {ensureInDatabase : ensureInDatabase };

@@ -1,0 +1,4 @@
+CREATE TABLE admins (
+    userid varchar(100)      UNIQUE NOT NULL,
+    FOREIGN KEY (userid) REFERENCES users (id)
+);

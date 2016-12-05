@@ -1,0 +1,8 @@
+CREATE TABLE answers (
+    id          INT             NOT NULL AUTO_INCREMENT,
+    questionid  INT             NOT NULL,
+    answer      VARCHAR(255)    NOT NULL,
+    correct     BOOLEAN         NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (questionid) REFERENCES questions (id)
+);
