@@ -23,22 +23,24 @@ connection.connect(function(err) {
 
 router.get('/', ensureLoggedIn, ensureInDatabase, function(req, res) {
 	connection.query(
-			'SELECT * FROM subscriptions AS s' +
-				'INNER JOIN questions AS q ON s.subjectid = q.subjectid' +
-				'LEFT JOIN submissions AS sm ON q.id = sm.questionid;',
-				//'WHERE s.userid = ? AND (sm.questionid = NULL OR sm.nextDate < ?)' +
-				//'LIMIT 1;',
+			'SELECT q.id, q.text, q.type FROM subscriptions AS s ' +
+				'INNER JOIN questions AS q ON s.subjectid = q.ownerid ' +
+				'LEFT JOIN submissions AS sm ON q.id = sm.questionid ' +
+				'WHERE s.userid = ? AND (sm.questionid IS NULL OR sm.nextDate <= ?) ' +
+				'LIMIT 1;',
 			[req.user.id, new Date()], function(err, rows, fields) {
 		if ( err && err.errno != 1065) {
 			throw err;
 			return;
 		}
+		res.redirect('/quiz/' + rows[0]['id']);
+		return;
 	});
 });
 
 router.get('/:questionID', function(req, res) {
-	connection.query('SELECT * FROM WHERE subjects.id = ?;',
-			[id], function(err, rows, fields) {
+	connection.query('SELECT * FROM questions WHERE questions.id = ?;',
+			[req.params.questionID], function(err, rows, fields) {
 		if ( err && err.errno != 1065) {
 			throw err;
 			return;
