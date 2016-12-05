@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<% include ../partials/head %>
+	<% include partials/head %>
 </head>
-<body>
-<h1>Are you ready?</h1>
-<h2><%= quiz.text %></h2>
-<form>
-	<input type=text></input>
-	<input
-<form>
+<body style="background-image:url(/images/geometry.jpg)">
+<% include partials/navbar %>
+<div id="wrapper">
+
+	<% include partials/sidebar %>
+	<% include partials/bs-boilerplate-start %>
+	<!-- Page content -->
+	<h1>Ready to get quized?</h1>
+	<h2><%= quiz.text %></h2>
+	<form action="/quiz/<%= quiz.id %>" method="post">
+		Answer:<br/>
+		<input type="text" name="answer"/><br/>
+		<input type="submit" value="Submit"/>
+	</form>
+	
+	<!-- More boilerplate
+	<% include partials/bs-boilerplate-end %>
+</div>
 </body>
+</html>
+

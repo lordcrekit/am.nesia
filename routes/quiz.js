@@ -45,7 +45,11 @@ router.get('/:questionID', function(req, res) {
 			throw err;
 			return;
 		}
-		res.send(rows);
+		if ( rows.length == 0 ) {
+			res.send("No more quizes! You're all done for now.");
+		} else {
+			res.render('quiz', {user : req.user, quiz : rows[0]})
+		}
 	});
 });
 
