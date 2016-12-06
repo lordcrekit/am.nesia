@@ -4,5 +4,5 @@ CREATE TABLE questions(
 	text varchar(255),
 	type int,
 	PRIMARY KEY (id),
-	FOREIGN KEY (ownerid) REFERENCES subjects (id)
+	FOREIGN KEY (subjectid) REFERENCES subjects (id)
 );

@@ -16,7 +16,7 @@ connection.connect(function(err) {
   }
   console.log('connected as id ' + connection.threadId);
 });
-
+    
 var first_time_setup = function() {
     connection.query("SHOW TABLES", function(err, rows) {
         if (err) {throw err;}
@@ -30,11 +30,12 @@ var first_time_setup = function() {
                     'subscriptions', 'submissions', 'answers'];
         needed.forEach(function(value) {
             if (found.indexOf(value) <= -1) {
+                console.log("Creating table " + value)
                 fs.readFile('./functions/tableDeclarations/' + value + '.txt', 'ascii', function(err1, data) {
                     if (err1) { throw err1; }
                     connection.query(data, function(err2) {
                         if (err2 && err2.errno != 1065) { console.log(err2.errno); throw err2; }
-                        console.log('Created table ' + value);
+                        console.log('      Success!');
                     });
                 });
                

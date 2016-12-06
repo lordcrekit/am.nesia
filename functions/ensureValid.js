@@ -49,7 +49,15 @@ var ensureInDatabase = function(req, res, next) {
  * Makes sure the user is an admin.
  */
 var ensureIsAdmin = function(req, res, next) {
-    
+    connection.query('SELECT * FROM admins WHERE admins.userid = ?;',
+            [req.user.id], function(err) {
+        if (err) {
+            console.log(err);
+            res.render('no-access');
+        } else {
+            next();
+        }
+    });
 }
 
-module.exports = {ensureInDatabase : ensureInDatabase };
+module.exports = {ensureInDatabase : ensureInDatabase, ensureIsAdmin : ensureIsAdmin };

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+<body style="background-image:url(/images/geometry.jpg)">
+<% include partials/navbar %>
+<div id="wrapper">
+	<% include partials/sidebar %>
+	<% include partials/bs-boilerplate-start %>
+    
+    <!-- Page content -->
+    <small><a href="/subjects/<%= question.ownerid %>">Back to subject</a></small>
+    <h1><%= question.text %></h1>
+    <% if (answers.length > 0) { %>
+        <h2>Answers</h2>
+        <ul>
+        <% for ( var i = 0; i < answers.length; i++) { %>
+            <li><a href="/answers/<%= answers[i].id %>"><%= answers[i].answer %></a></li>
+        <% } %>
+        </ul>
+    <% } else { %>
+        <p>Uh oh, it looks like this question doesn't have any answers... Might want to talk to an admin about that.</p>
+    <% } %>
+    
+    
+    <!-- admin stuff -->
+    <% if (admin) { %>
+        <h4>Hey admin, want to make some changes?</h4>
+        <ul>
+            <li><a href="/questions/<%= question.id %>/add-answer">Add a new answer.</a></li>
+            <li><a href="/questions/<%= question.id %>/delete">Delete this POS.</a></li>
+        </ul>
+    <% } %>
+    
+	<% include partials/bs-boilerplate-end %>
+</div>
+</body>
+</html>

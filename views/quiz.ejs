@@ -14,11 +14,11 @@
 	<h2><%= quiz.text %></h2>
 	<form action="/quiz/<%= quiz.id %>" method="post">
 		Answer:<br/>
-		<input type="text" name="answer"/><br/>
+		<input type="text" name="answerText"/><br/>
 		<input type="submit" value="Submit"/>
 	</form>
 	
-	<!-- More boilerplate
+	<!-- More boilerplate -->
 	<% include partials/bs-boilerplate-end %>
 </div>
 </body>

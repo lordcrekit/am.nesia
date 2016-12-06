@@ -12,8 +12,17 @@
 	
     <!-- Page content -->
     <h1>Welcome, <%= user.nickname %>.</h1>
+    <h3>Your userid is</h3>
     <pre><%= user.id %></pre>
-	
+    
+    <% if (admin) { %>
+        <h3>You are an admin.</h3>
+        <p><a href="user/revoke-admin">Revoke admin access</a></p>
+    <% } else { %>
+        <h3>You are not an admin.</h3>
+        <p><a href="user/request-admin">Request admin access</a></p>
+    <% } %>
+    
 	<% include partials/bs-boilerplate-end %>
 </body>
 </html>

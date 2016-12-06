@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
-var ensureInDatabase = require('../functions/ensureInDatabase').ensureInDatabase;
+
+var ensureValid = require('../functions/ensureValid');
+var ensureInDatabase = ensureValid.ensureInDatabase;
+var ensureIsAdmin = ensureValid.ensureIsAdmin;
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -34,7 +37,7 @@ router.get('/:subjectID', ensureLoggedIn, function(req, res) {
 			res.send(err);
 			return;
 		}
-		if (rows.length == 0) {subject = null;} 
+		if (rows.length == 0) {subject = {id : -1};} 
 		else {var subject = rows[0];}
 		
 		connection.query(
@@ -45,7 +48,7 @@ router.get('/:subjectID', ensureLoggedIn, function(req, res) {
 				return;
 			}
 			connection.query(
-					'SELECT * FROM questions WHERE questions.ownerid = ?;',
+					'SELECT * FROM questions WHERE questions.subjectid = ?;',
 					[id], function(err2, rows2, fields2) {
 				if ( err2 && err2.errno != 1065) {
 					res.send(err2);
@@ -58,29 +61,56 @@ router.get('/:subjectID', ensureLoggedIn, function(req, res) {
 						res.send(err3);
 						return;
 					}
-					var subscribed = (rows3.length > 0);
-					res.render('subjects', {
-						user : req.user,
-						subject : subject,
-						subscribed : subscribed,
-						subjects : rows1,
-						questions : rows2
-					});
-					return;
+                    var subscribed = (rows3.length > 0);
+                    
+                    connection.query('SELECT * FROM admins WHERE admins.userid = ?;', [req.user.id], function(err4, rows4) {
+                        if (err4) { res.send(err4); }
+                        var admin = (rows4.length > 0);
+                        res.render('subjects', {
+                            admin : admin,
+                            user : req.user,
+                            subject : subject,
+                            subscribed : subscribed,
+                            subjects : rows1,
+                            questions : rows2
+                        });
+                        return;
+                    });
 				});
 			});
 		});
 	});
 });
 
+router.get('/:subjectid/add-subject', ensureIsAdmin, function(req, res) {
+    res.render('subject-add-subject', { user : req.user, subject : { id : req.params.subjectid } });
+});
+
+router.post('/:subjectid/add-subject', ensureIsAdmin, function(req, res) {
+    if ( !req.body.subjectName || req.body.subjectName.length == 0 ) { res.send('must enter name'); return; }
+    connection.query('INSERT INTO subjects (ownerid, name) VALUES (?, ?);', [req.params.subjectid, req.body.subjectName], function(err, rows, fields) {
+        if (err) {res.send(err); return;}
+        res.redirect('/subjects/' + req.params.subjectid);
+    });
+});
+
+router.get('/:subjectid/add-question', ensureIsAdmin, function(req, res) {
+    res.render('subject-add-question', {user : req.user, subject : {id : req.params.subjectid}});
+});
+
+router.post('/:subjectid/add-question', ensureIsAdmin, function(req, res) {
+    if ( !req.body.questionText || req.body.questionText.length == 0 ) { res.send('must enter name'); return; }
+    connection.query('INSERT INTO questions (subjectid, text) VALUES (?, ?);', [req.params.subjectid, req.body.questionText], function(err, rows, fields) {
+        if (err) {res.send(err); return;}
+        res.redirect('/subjects/' + req.params.subjectid);
+    });
+});
+
 router.get('/:subjectID/subscribe', ensureLoggedIn, ensureInDatabase, function(req, res) {
 	connection.query(
-			'INSERT INTO subscriptions VALUES (?, ?, 0)',
+			'INSERT INTO subscriptions VALUES (?, ?, 0);',
 			[req.user.id, req.params.subjectID], function(err, rows, fields) {
-		if (err) {
-			res.send(err);
-			return;
-		}
+		if (err) { res.send(err); return; }
 		res.redirect('/subjects/' + req.params.subjectID);
 	});
 });
@@ -89,10 +119,7 @@ router.get('/:subjectID/unsubscribe', ensureLoggedIn, ensureInDatabase, function
 	connection.query(
 			'DELETE FROM subscriptions WHERE userid = ? and subjectid = ?;',
 			[req.user.id, req.params.subjectID], function(err, rows, fields) {
-		if (err) {
-			res.send(err);
-			return;
-		}
+		if (err) { res.send(err); return; }
 		res.redirect('/subjects/' + req.params.subjectID);
 	});
 });

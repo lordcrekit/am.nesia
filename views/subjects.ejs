@@ -10,7 +10,11 @@
 	<% include partials/bs-boilerplate-start %>
 	
 	<!-- Content -->
-	<h1><% if (subject == null) { %> Root <% } else { %><%= subject.name %><% } %></h1>
+    <!-- Back up a subject -->
+    <% if (subject.ownerid) { %>
+        <small><a href="/subjects/<%= subject.ownerid %>">Back up</a></small>
+	<% } %>
+    <h1><% if (subject == null) { %> Root <% } else { %><%= subject.name %><% } %></h1>
 	<% if ( questions.length >0 ) { %>
 			<% if (subscribed) { %>
 				<h3><a href="/subjects/<%=subject.id%>/unsubscribe/">Unsubscribe</a></h3>
@@ -34,6 +38,17 @@
 		<% } %>
 		</ul>
 	<% } %>
+    
+    <!-- admin stuff -->
+    <% if (admin) { %>
+        <h4>Hey admin, want to make some changes?</h4>
+        <ul>
+            <li><a href="/subjects/<%= subject.id %>/add-subject">Add a new subcategory.</a></li>
+            <li><a href="/subjects/<%= subject.id %>/add-question">Add a new question.</a></li>
+            <li><a href="/subjects/<%= subject.id %>/delete">Delete this pos.</a></li>
+        </ul>
+    <% } %>
+    
 	
 	<% include partials/bs-boilerplate-end %>
 </div>

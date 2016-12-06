@@ -62,6 +62,7 @@ require('./functions/firstTimeSetup').firstTimeSetup();
 app.use('/', require('./routes/index'));
 app.use('/user', require('./routes/user'));
 app.use('/subjects', require('./routes/subjects'));
+app.use('/questions', require('./routes/questions'));
 app.use('/quiz', require('./routes/quiz'));
 
 // catch 404 and forward to error handler
