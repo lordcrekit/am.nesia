@@ -2,7 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-	database	: process.env.RDS_DBNAME,
+	database	: process.env.RDS_DB_NAME ,
 	host		: process.env.RDS_HOSTNAME,
 	user		: process.env.RDS_USERNAME,
 	password	: process.env.RDS_PASSWORD,
@@ -22,7 +22,7 @@ var first_time_setup = function() {
         if (err) {throw err;}
         var found = [];
         for (var i = 0; i < rows.length; i++) {
-            found.push(rows[i]['Tables_in_amnesiadb']);
+            found.push(rows[i]['Tables_in_amnesiadb'].toLowerCase());
         }
         console.log(found);
         // Check users table.
@@ -38,7 +38,6 @@ var first_time_setup = function() {
                         console.log('      Success!');
                     });
                 });
-               
             }
         });
 	});

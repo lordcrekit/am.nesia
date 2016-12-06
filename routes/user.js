@@ -10,7 +10,7 @@ var router = express.Router();
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-	database	: process.env.RDS_DBNAME,
+	database	: process.env.RDS_DB_NAME ,
 	host		: process.env.RDS_HOSTNAME,
 	user		: process.env.RDS_USERNAME,
 	password	: process.env.RDS_PASSWORD,

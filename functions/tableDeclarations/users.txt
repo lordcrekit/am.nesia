@@ -1,4 +1,4 @@
-CREATE TABLE USERS(
+CREATE TABLE users(
 	id varchar(100)		NOT NULL,
     email varchar(100),
     min_questions int,
