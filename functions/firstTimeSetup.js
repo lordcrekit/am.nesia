@@ -22,7 +22,7 @@ var first_time_setup = function() {
         if (err) {throw err;}
         var found = [];
         for (var i = 0; i < rows.length; i++) {
-            found.push(rows[i]['Tables_in_amnesiadb'].toLowerCase());
+            found.push(rows[i]['Tables_in_' + process.env.RDS_DB_NAME]);
         }
         console.log(found);
         // Check users table.

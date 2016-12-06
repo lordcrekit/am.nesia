@@ -38,3 +38,6 @@ jspm_packages
 
 # Don't include our env thing
 .env
+
+*.zip
+am.nesia.zip
