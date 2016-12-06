@@ -19,13 +19,13 @@
     <pre><%= gaveAnswer %></pre>
     <h2>Correct answers</h2>
     <% if ( correctAnswers.length == 0 ) { %>
+        <p>Oops.. it looks like this question doesn't have a correct answer. Contact an admin.</p>
+    <% } else { %>
         <ul>
         <% for (var i = 0; i < correctAnswers.length; i++ ) { %>
             <li><pre><%= correctAnswers[i].answer %></pre></li>
         <% } %>
         </ul>
-    <% } else { %>
-        <p>Oops.. it looks like this question doesn't have a correct answer. Contact an admin.</p>
     <% } %>
     <p><a href="/quiz">Next question!</a></p>
     
